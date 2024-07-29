@@ -1,0 +1,13 @@
+.burger-page {
+    display: flex;
+    justify-content: center; /* Центрируем контент */
+  }
+  
+  .burger-constructor {
+    width: 50%; /* Занимает правую часть экрана */
+    padding: 20px;
+    box-sizing: border-box;
+    border-left: 1px solid #ccc; /* Разделительная линия */
+    background-color: #ccc; /* Серый фон */
+  }
+  
