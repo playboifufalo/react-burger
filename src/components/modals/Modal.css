@@ -1,84 +1,51 @@
-.burger-page {
-  display: flex;
-  justify-content: space-between;
-}
-
-.burger-constructor {
-  width: 50%; /* Занимает левую часть экрана */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  max-width: 90%;
+  background-color: #1c1c1c;
+  border-radius: 10px;
   padding: 20px;
-  box-sizing: border-box;
-  border-right: 1px solid #ccc; /* Разделительная линия */
+  z-index: 1000; 
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.modal__header {
   display: flex;
-  flex-direction: column;
-  background-color: #fff;
-}
-
-.burger-constructor__title {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.burger-constructor__items {
-  flex: 1;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-}
-
-.constructor-ingredient {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.constructor-ingredient.bun-top {
-  margin-bottom: 20px;
-}
-
-.constructor-ingredient.bun-bottom {
-  margin-top: 20px;
-}
-
-.constructor-ingredient__drag-icon {
-  margin-right: 10px;
-}
-
-.constructor-ingredient__image {
-  width: 40px;
-  height: 40px;
-  margin-right: 10px;
-}
-
-.constructor-ingredient__name {
-  flex: 1;
-}
-
-.constructor-ingredient__price {
-  display: flex;
-  align-items: center;
-}
-
-.burger-constructor__footer {
-  display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding-top: 10px;
-  border-top: 1px solid #ccc;
-}
-
-.burger-constructor__total {
-  display: flex;
   align-items: center;
+  border-bottom: 1px solid #444;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
 }
 
-.burger-constructor__total-text {
-  margin-right: 10px;
+.modal__title {
+  font-size: 24px;
+  color: #fff;
 }
 
-.burger-constructor__order-button {
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: white;
+.modal__close {
+  background: none;
   border: none;
+  color: #fff;
+  font-size: 24px;
   cursor: pointer;
+}
+
+.modal__content {
+  color: #fff;
+  font-size: 18px;
+}
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999; 
 }

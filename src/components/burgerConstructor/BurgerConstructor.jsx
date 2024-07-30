@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CurrencyIcon, LockIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modals/Modal.jsx';
-import './BurgerConstructor.module.css';
+import './BurgerConstructor.css';
 
 const BurgerConstructor = () => {
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
