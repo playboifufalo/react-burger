@@ -1,22 +1,26 @@
 import React from 'react';
-import AppHeader from './components/appHeader/AppHeader'; // Проверьте правильность пути
+import logo from './logo.svg';
+import './App.css';
 
-const App = () => {
+function App() {
   return (
-    <div>
-      <AppHeader />
-      <main style={styles.mainContent}>
-        <h1>Добро пожаловать в наше приложение!</h1>
-        <p>Здесь будет основное содержимое вашего приложения.</p>
-      </main>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.tsx</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
     </div>
   );
-};
-
-const styles = {
-  mainContent: {
-    padding: '20px',
-  },
-};
+}
 
 export default App;
