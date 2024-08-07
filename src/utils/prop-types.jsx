@@ -15,3 +15,5 @@ const propTypes = PropTypes.shape({
 });
 
 export { propTypes };
+
+/*..*/
