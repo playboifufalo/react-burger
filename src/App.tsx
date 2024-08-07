@@ -1,5 +1,5 @@
 import React from 'react';
-import AppHeader from './components/appHeader/AppHeader'; // Проверьте правильность пути
+import AppHeader from './components/AppHeader/AppHeader'; 
 
 const App = () => {
   return (

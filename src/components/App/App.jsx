@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppHeader from '../appHeader/AppHeader.jsx';
-import BurgerIngredients from '../burgerIngredients/BurgerIngredients.jsx';
+import AppHeader from '../AppHeader/AppHeader.jsx';
+import BurgerIngredients from '../BurgerIngredients/BurgerIngredients.jsx';
 import BurgerConstructor from '../burgerConstructor/BurgerConstructor.jsx';
 import { data } from '../../utils/data';
 
@@ -16,3 +16,5 @@ const App = () => {
 };
 
 export default App;
+
+/*..*/
