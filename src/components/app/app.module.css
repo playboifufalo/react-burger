@@ -1,0 +1,17 @@
+.mainContainer {
+  display: flex;
+  justify-content: center; 
+  gap: 40px; 
+  padding-top: 128px; 
+}
+
+.mainContainer > * {
+  width: 600px;
+  height: 912px;
+  border-width: 2px 0 0 0; 
+  border-style: solid;
+  border-color: transparent; 
+  opacity: 1; 
+}
+
+
