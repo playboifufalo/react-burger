@@ -14,7 +14,6 @@ const AppHeader = () => {
                     </div>
                     <span
                         className={styles.navText}
-                        style={{ color: activeTab === "constructor" ? "#fff" : "#8585ad" }}
                     >
                         Конструктор
                     </span>

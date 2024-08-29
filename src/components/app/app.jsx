@@ -9,7 +9,7 @@ function App() {
   return (
     <>
     <AppHeader />
-    <div className={styles.mainContainer}>
+    <div className={styles.main}>
       <BurgerIngredients />
       <BurgerConstructor />
     </div>
