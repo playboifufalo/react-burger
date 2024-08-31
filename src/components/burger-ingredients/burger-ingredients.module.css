@@ -6,9 +6,10 @@
     border-style: solid;
     border-color: transparent;
     opacity: 1;
-    overflow-y: auto;
+    overflow-y: hidden;
+    overflow-x: hidden;
   }
-  
+
 
 .ingr_heading {
     position: sticky;

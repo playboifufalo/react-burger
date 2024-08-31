@@ -1,0 +1,43 @@
+h1{
+    text-align: center;
+}
+
+.ingredient_descr{
+    width: Hug (520px)px;
+    height: Hug (118px)px;
+    top: 360px;
+    left: 100px;
+    gap: 32px;
+    opacity: 0px;
+}
+
+.ingr_img{
+    margin-left: auto;
+}
+
+.nutrients{
+    width: Hug (516px)px;
+    height: Hug (56px)px;
+    gap: 20px;
+    opacity: 0px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.nutrient {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+}
+
+.nutrient .text_type_main-default {
+    margin-bottom: 4px;
+}
+
+.nutrient .text_type_digits-default {
+    font-size: 16px;
+    font-weight: bold;
+}
