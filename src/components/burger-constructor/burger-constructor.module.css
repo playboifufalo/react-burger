@@ -1,0 +1,76 @@
+.constructorContainer {
+    width: 600px;
+    height: 912px;
+    gap: 0px;
+    border-width: 2px 0 0 0;
+    border-style: solid;
+    border-color: transparent;
+    opacity: 1;
+    overflow: hidden; 
+  }
+  
+  
+
+.constructor {
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.ingredientsList {
+    margin-bottom: 20px;
+    width: 100%;
+    gap: 16px; 
+    display: flex;
+    flex-direction: column;
+}
+
+.total {
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center;
+    width: 100%;
+    padding: 16px;
+    background-color: #131316;
+    border-radius: 8px;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #F2F2F3;
+    margin-left: 250px; 
+}
+
+.ingredientItem {
+    display: flex;
+    align-items: center;
+    gap: 24px; 
+}
+
+.dragIcon {
+    width: 32px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.totalContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+    padding: 16px;
+    background-color: #131316;
+    border-radius: 8px;
+}
+
+.totalContainer button {
+    margin-right: 16px; 
+}
