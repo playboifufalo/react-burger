@@ -1,0 +1,39 @@
+.ident {
+    text-align: center;
+    padding-top: 60px; 
+    position: sticky;
+    margin-bottom: 32px; 
+}
+
+.checkIron {
+    text-align: center;
+    padding-top: 0; 
+    position: sticky;
+    margin-bottom: 60px; 
+}
+
+.imageCross {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 60px;   
+    padding-left: 40%
+}
+
+.getReady {
+    text-align: center;
+    padding-top: 0; 
+    position: sticky;
+}
+
+.h2 {
+    text-align: center;
+    padding-top: 32px;
+    position: sticky;
+}
+
+.orderReady{
+    text-align: center;
+    padding-top: 32px;
+    position: sticky;
+}

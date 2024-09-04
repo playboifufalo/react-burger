@@ -13,12 +13,25 @@
     cursor: pointer;
 }
 
-.modalContent {
+.modalContent_ingr {
     background-color: #1d1d1d;
     border-radius: 16px; 
     padding: 20px;
     width: 720px; 
-    height: 538px; 
+    height: 539px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.modalContent_order {
+    background-color: #1d1d1d;
+    border-radius: 16px; 
+    padding: 20px;
+    width: 720px; 
+    height: 718px; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,4 +54,9 @@
     align-items: center;
     justify-content: center;
     width: 100%;
+}
+
+.textHeading{
+    padding-top: 40px;
+    padding-left: 40px;
 }

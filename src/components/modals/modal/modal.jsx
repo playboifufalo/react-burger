@@ -5,7 +5,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import PropTypes from 'prop-types';
 
-const Modal = ({ title, onClose, children }) => {
+const Modal = ({ title, onClose, children, type }) => {
     useEffect(() => {
         const handleEscClose = (event) => {
             if (event.key === 'Escape') {
@@ -20,14 +20,15 @@ const Modal = ({ title, onClose, children }) => {
         };
     }, [onClose]);
     
+    const modalClass = type === 'order' ? styles.modalContent_order : styles.modalContent_ingr;
 
     return ReactDOM.createPortal(
         (
             <div className={styles.modal_overlay}>
                 <ModalOverlay onClose={onClose} />
-                <div className={styles.modalContent}>
+                <div className={`${styles.modalContent} ${modalClass}`}>
                     <div className={styles.modalHeader}>
-                        <h2 className="text text_type_main-large">{title}</h2>
+                        <section className={styles.textHeading}><h2 className="text text_type_main-large">{title}</h2></section>
                         <div className={styles.closeIcon} onClick={onClose}>
                             <CloseIcon type="primary" />
                         </div>
@@ -46,6 +47,7 @@ Modal.propTypes = {
     title: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
+    type: PropTypes.oneOf(['order', 'ingredient']).isRequired,
 };
 
 export default Modal;

@@ -6,6 +6,7 @@ const IngredientDetails = ({ ingredient }) => {
     if (!ingredient) return null;
 
     return (
+        <div className={styles.modal_overlay}>
         <div className={styles.ingredient_descr}>
             <img src={ingredient.image_large} alt={ingredient.name} className={styles.ingr_img} />
             <h1 className="text text_type_main-medium">{ingredient.name}</h1>
@@ -27,6 +28,7 @@ const IngredientDetails = ({ ingredient }) => {
                     <span className="text text_type_digits-default text_color_inactive">{ingredient.carbohydrates}</span>
                 </div>
             </div>
+        </div>
         </div>
     );
 };

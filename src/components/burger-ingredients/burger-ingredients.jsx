@@ -136,7 +136,7 @@ const BurgerIngredients = () => {
             </section>
             </div>
             {selectedIngredient && (
-                <Modal onClose={handleCloseModal} title="Детали ингредиента">
+                <Modal onClose={handleCloseModal} title="Детали ингредиента" type="ingredient">
                     <IngredientDetails ingredient={selectedIngredient} />
                 </Modal>
             )}
