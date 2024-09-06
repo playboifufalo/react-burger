@@ -6,7 +6,7 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 import PropTypes from 'prop-types';
 import { IngredientType } from '../../../utils/types';
 
-const Modal = ({ title, onClose, children, type }) => {
+const Modal = ({ title, onClose, children }) => {
     useEffect(() => {
         const handleEscClose = (event) => {
             if (event.key === 'Escape') {
@@ -25,22 +25,23 @@ const Modal = ({ title, onClose, children, type }) => {
 
     return ReactDOM.createPortal(
         (
-            <div className={styles.modal_overlay}>
-                <ModalOverlay onClose={onClose} />
-                <div className={`${styles.modalContent} ${modalClass}`}>
-                    <div className={styles.modalHeader}>
-                        <section className={styles.textHeading}><h2 className="text text_type_main-large">{title}</h2></section>
-                        <div className={styles.closeIcon} onClick={onClose}>
-                            <CloseIcon type="primary" />
-                        </div>
-                    </div>
-                    <div className={styles.modalBody}>
-                        {children}
+            <ModalOverlay onClose={onClose}>
+            <div className={modalClass}>
+                <div className={styles.modalHeader}>
+                    <section className={styles.textHeading}>
+                        <h2 className="text text_type_main-large">{title}</h2>
+                    </section>
+                    <div className={styles.closeIcon} onClick={onClose}>
+                        <CloseIcon type="primary" />
                     </div>
                 </div>
+                <div className={styles.modalBody}>
+                    {children}
+                </div>
             </div>
-        ),
-        document.getElementById('modals') 
+        </ModalOverlay>
+    ),
+    document.getElementById('modals')
     );
 };
 

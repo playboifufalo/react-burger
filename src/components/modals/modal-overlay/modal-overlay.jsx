@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import styles from './modal-overlay.module.css';
 import PropTypes from 'prop-types';
 
-const ModalOverlay = ({ onClose }) => {
+const ModalOverlay = ({ onClose, children }) => {
     const handleOverlayClick = (event) => {
         if (event.target === event.currentTarget) {
             onClose();
@@ -11,7 +11,9 @@ const ModalOverlay = ({ onClose }) => {
     };
 
     return (
-        <div className={styles.modalOverlay} onClick={handleOverlayClick}></div>
+        <div className={styles.modal_overlay} onClick={handleOverlayClick}>
+            {children}
+        </div>
     );
 };
 
