@@ -13,7 +13,7 @@
     cursor: pointer;
 }
 
-.modalContent_ingr {
+.noTitle {
     background-color: #1d1d1d;
     border-radius: 16px; 
     padding: 20px;
@@ -26,7 +26,7 @@
     position: relative;
 }
 
-.modalContent_order {
+.withTitle {
     background-color: #1d1d1d;
     border-radius: 16px; 
     padding: 20px;

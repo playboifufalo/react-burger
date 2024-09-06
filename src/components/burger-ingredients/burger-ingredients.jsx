@@ -7,14 +7,14 @@ import ModalOverlay from '../modals/modal-overlay/modal-overlay';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 import PropTypes from 'prop-types';
+import { IngredientType } from '../../utils/types';
 
 const BurgerIngredients = () => {
 
     const [current, setCurrent] = React.useState('one');
     const [selectedIngredient, setSelectedIngredient] = useState(null); 
-    const [orderDetailsVisible, setOrderDetailsVisible] = useState(false);
-    const [ingredients, setIngredients] = useState([]);  // Добавлено состояние для хранения ингредиентов
-    const [isLoading, setIsLoading] = useState(true);  // Состояние для отслеживания загрузки
+    const [ingredients, setIngredients] = useState([]);  
+    const [isLoading, setIsLoading] = useState(true); 
     const [error, setError] = useState(null);
 
     const filterIngredientsByType = (type) => {
@@ -35,7 +35,7 @@ const BurgerIngredients = () => {
                 const response = await fetch('https://norma.nomoreparties.space/api/ingredients');
                 const data = await response.json();
                 if (data.success) {
-                    setIngredients(data.data); // Запись загруженных данных в состояние
+                    setIngredients(data.data);
                 } else {
                     setError('Failed to load ingredients');
                 }
@@ -49,18 +49,6 @@ const BurgerIngredients = () => {
         fetchIngredients();
     }, []);
 
-    useEffect(() => {
-        const handleEscClose = (e) => {
-            if (e.key === 'Escape') {
-                handleCloseModal();
-            }
-        };
-
-        document.addEventListener('keydown', handleEscClose);
-        return () => {
-            document.removeEventListener('keydown', handleEscClose);
-        };
-    }, []);
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -89,32 +77,32 @@ const BurgerIngredients = () => {
                 </div>
             </div>
             <div className={styles.ingredient_position}>
-            <section className={styles.ingr_section}>
+            <section>
                 <h2 className="text text_type_main-medium">Булки</h2>
                 <div className={styles.ingredients}>
                     {filterIngredientsByType('bun').map((ingredient) => (
                         <div key={ingredient._id} className={styles.ingredient} onClick={() => handleIngredientClick(ingredient)}>
                             <img src={ingredient.image} alt={ingredient.name} className={styles.ingredient_img} />
                             <div className={styles.price_container}>
-                                <span className={styles.ingredient_price}>{ingredient.price}</span>
+                                <p className="text text_type_digits-default">{ingredient.price}</p>
                                 <CurrencyIcon type="primary" />
                             </div>
-                            <span className={styles.ingredient_name}>{ingredient.name}</span>
+                            <p className="text text_type_main-default">{ingredient.name}</p>
                         </div>
                     ))}
                 </div>
             </section>
-            <section className={styles.ingr_section}>
+            <section>
                 <h2 className="text text_type_main-medium">Соусы</h2>
                 <div className={styles.ingredients}>
                     {filterIngredientsByType('sauce').map((ingredient) => (
                         <div key={ingredient._id} className={styles.ingredient} onClick={() => handleIngredientClick(ingredient)}>
                             <img src={ingredient.image} alt={ingredient.name} className={styles.ingredient_img} />
                             <div className={styles.price_container}>
-                                <span className={styles.ingredient_price}>{ingredient.price}</span>
+                                <p className="text text_type_digits-default">{ingredient.price}</p>
                                 <CurrencyIcon type="primary" />
                             </div>
-                            <span className={styles.ingredient_name}>{ingredient.name}</span>
+                            <p className="text text_type_main-default">{ingredient.name}</p>
                         </div>
                     ))}
                 </div>
@@ -126,10 +114,10 @@ const BurgerIngredients = () => {
                         <div key={ingredient._id} className={styles.ingredient} onClick={() => handleIngredientClick(ingredient)}>
                             <img src={ingredient.image} alt={ingredient.name} className={styles.ingredient_img} />
                             <div className={styles.price_container}>
-                                <span className={styles.ingredient_price}>{ingredient.price}</span>
+                                <p className="text text_type_digits-default">{ingredient.price}</p>
                                 <CurrencyIcon type="primary" />
                             </div>
-                            <span className={styles.ingredient_name}>{ingredient.name}</span>
+                            <p className="text text_type_main-default">{ingredient.name}</p>
                         </div>
                     ))}
                 </div>
@@ -145,28 +133,7 @@ const BurgerIngredients = () => {
 };
 
 BurgerIngredients.propTypes = {
-    ingredients: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        image: PropTypes.string.isRequired,
-        image_large: PropTypes.string,
-        price: PropTypes.number.isRequired,
-        calories: PropTypes.number,
-        proteins: PropTypes.number,
-        fat: PropTypes.number,
-        carbohydrates: PropTypes.number,
-    })),
-    selectedIngredient: PropTypes.shape({
-        _id: PropTypes.string,
-        name: PropTypes.string,
-        image_large: PropTypes.string,
-        calories: PropTypes.number,
-        proteins: PropTypes.number,
-        fat: PropTypes.number,
-        carbohydrates: PropTypes.number,
-    }),
-    setCurrent: PropTypes.func,
+    ingredients: PropTypes.arrayOf(IngredientType).isRequired,
 };
 
 export default BurgerIngredients;

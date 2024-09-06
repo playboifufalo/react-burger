@@ -4,6 +4,7 @@ import styles from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import PropTypes from 'prop-types';
+import { IngredientType } from '../../../utils/types';
 
 const Modal = ({ title, onClose, children, type }) => {
     useEffect(() => {
@@ -20,7 +21,7 @@ const Modal = ({ title, onClose, children, type }) => {
         };
     }, [onClose]);
     
-    const modalClass = type === 'order' ? styles.modalContent_order : styles.modalContent_ingr;
+    const modalClass = title ? styles.withTitle : styles.noTitle;
 
     return ReactDOM.createPortal(
         (
@@ -44,10 +45,7 @@ const Modal = ({ title, onClose, children, type }) => {
 };
 
 Modal.propTypes = {
-    title: PropTypes.string.isRequired,
-    onClose: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired,
-    type: PropTypes.oneOf(['order', 'ingredient']).isRequired,
+    ingredients: PropTypes.arrayOf(IngredientType).isRequired,
 };
 
 export default Modal;
