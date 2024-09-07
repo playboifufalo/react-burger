@@ -4,7 +4,7 @@ import styles from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import PropTypes from 'prop-types';
-import { IngredientType } from '../../../utils/types';
+import { ModalPropTypes } from '../../../utils/types';
 
 const Modal = ({ title, onClose, children }) => {
     useEffect(() => {
@@ -45,8 +45,12 @@ const Modal = ({ title, onClose, children }) => {
     );
 };
 
+
 Modal.propTypes = {
-    ingredients: PropTypes.arrayOf(IngredientType).isRequired,
+    ...ModalPropTypes,
+    title: PropTypes.string,
+    onClose: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired,
 };
 
 export default Modal;

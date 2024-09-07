@@ -133,7 +133,7 @@ const BurgerIngredients = () => {
 };
 
 BurgerIngredients.propTypes = {
-    ingredients: PropTypes.arrayOf(IngredientType).isRequired,
+    ingredients: PropTypes.arrayOf(IngredientType), // IngredientType применяется для общего массива
 };
 
 export default BurgerIngredients;

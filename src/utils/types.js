@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
+
 export const IngredientType = PropTypes.shape({
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -12,8 +13,11 @@ export const IngredientType = PropTypes.shape({
     proteins: PropTypes.number,
     fat: PropTypes.number,
     carbohydrates: PropTypes.number,
+});
+
+export const ModalPropTypes = {
     title: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
     type: PropTypes.oneOf(['order', 'ingredient']).isRequired,
-});
+};

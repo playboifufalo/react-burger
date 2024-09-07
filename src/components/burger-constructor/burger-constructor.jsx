@@ -4,6 +4,8 @@ import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktiku
 import Modal from '../modals/modal/modal';
 import OrderDetails from '../order-details/order-details';
 import ingredients from '../../utils/ingredready';
+import PropTypes from 'prop-types';
+import { IngredientType } from '../../utils/types';
 
 const BurgerConstructor = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -54,6 +56,9 @@ const BurgerConstructor = () => {
             )}
         </div>
     );
+};
+
+BurgerConstructor.propTypes = {
 };
 
 export default BurgerConstructor;

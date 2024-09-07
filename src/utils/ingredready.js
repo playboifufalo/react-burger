@@ -28,5 +28,7 @@ const ingredients = [
         isLocked: true
     }
  ];
+
+ 
  
  export default ingredients;
