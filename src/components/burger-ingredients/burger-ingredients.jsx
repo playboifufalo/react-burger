@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './burger-ingredients.module.css';
-import ReactDOM from 'react-dom';
 import { Tab, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modals/modal/modal';
-import ModalOverlay from '../modals/modal-overlay/modal-overlay';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import OrderDetails from '../order-details/order-details';
 import PropTypes from 'prop-types';
 import { IngredientType } from '../../utils/types';
 
@@ -33,14 +30,10 @@ const BurgerIngredients = () => {
         const fetchIngredients = async () => {
             try {
                 const response = await fetch('https://norma.nomoreparties.space/api/ingredients');
-                const data = await response.json();
-                if (data.success) {
-                    setIngredients(data.data);
-                } else {
-                    setError('Failed to load ingredients');
+                if (!response.ok) {
+                    return Promise.reject(`Ошибка ${response.status}`);
                 }
-            } catch (error) {
-                setError('Failed to load ingredients');
+            const data = await response.json();
             } finally {
                 setIsLoading(false);
             }
@@ -64,7 +57,7 @@ const BurgerIngredients = () => {
                 <h1 className="text text_type_main-large">Соберите бургер</h1>
             </div>
             <div className={styles.ingr_filter}>
-                <div style={{ display: 'flex' }}>
+                <div className={styles.tabs}>
                     <Tab value="one" active={current === 'one'} onClick={setCurrent}>
                         Булки
                     </Tab>
@@ -133,7 +126,7 @@ const BurgerIngredients = () => {
 };
 
 BurgerIngredients.propTypes = {
-    ingredients: PropTypes.arrayOf(IngredientType), // IngredientType применяется для общего массива
+    ingredients: PropTypes.arrayOf(IngredientType), 
 };
 
 export default BurgerIngredients;
