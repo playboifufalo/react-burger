@@ -13,6 +13,7 @@ export const IngredientType = PropTypes.shape({
     proteins: PropTypes.number,
     fat: PropTypes.number,
     carbohydrates: PropTypes.number,
+    
 });
 
 export const ModalPropTypes = {
@@ -20,4 +21,15 @@ export const ModalPropTypes = {
     onClose: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
     type: PropTypes.oneOf(['order', 'ingredient']).isRequired,
+};
+
+export const IngredientDetailsType = {
+    ingredient: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    image_large: PropTypes.string.isRequired,
+    calories: PropTypes.number.isRequired,
+    proteins: PropTypes.number.isRequired,
+    fat: PropTypes.number.isRequired,
+    carbohydrates: PropTypes.number.isRequired,
+    }).isRequired,
 };

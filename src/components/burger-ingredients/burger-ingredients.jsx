@@ -28,19 +28,24 @@ const BurgerIngredients = () => {
 
     useEffect(() => {
         const fetchIngredients = async () => {
-            try {
-                const response = await fetch('https://norma.nomoreparties.space/api/ingredients');
-                if (!response.ok) {
-                    return Promise.reject(`Ошибка ${response.status}`);
-                }
-            const data = await response.json();
-            } finally {
-                setIsLoading(false);
+          try {
+            const response = await fetch(
+              "https://norma.nomoreparties.space/api/ingredients"
+            );
+            if (!response.ok) {
+              return Promise.reject(`Ошибка ${response.status}`);
             }
+            const data = await response.json();
+            setIngredients(data.data);
+          } catch (error) {
+            setError("Failed to load ingredients");
+          } finally {
+            setIsLoading(false);
+          }
         };
-
+    
         fetchIngredients();
-    }, []);
+      }, []);
 
 
     if (isLoading) {

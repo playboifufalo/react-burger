@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './ingredient-details.module.css';
 import propTypes from 'prop-types';
+import { IngredientDetailsType } from '../../utils/types';
 
 const IngredientDetails = ({ ingredient }) => {
     if (!ingredient) return null;
@@ -34,6 +35,7 @@ const IngredientDetails = ({ ingredient }) => {
 };
 
 IngredientDetails.propTypes = {
+    ...IngredientDetailsType, 
 };
 
 
