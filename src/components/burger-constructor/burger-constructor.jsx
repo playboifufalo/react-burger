@@ -1,40 +1,24 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './burger-constructor.module.css';
 import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import Modal from '../modals/modal/modal';
+import OrderDetails from '../order-details/order-details';
+import ingredients from '../../utils/ingredready';
+import PropTypes from 'prop-types';
+import { IngredientType } from '../../utils/types';
 
 const BurgerConstructor = () => {
-    const ingredients = [
-        {
-            id: 1,
-            name: 'Краторная булка N-200i (верх)',
-            price: 200,
-            image: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-            type: 'top',
-            isLocked: true
-        },
-        {
-            id: 2,
-            name: 'Соус традиционный галактический',
-            price: 50,
-            image: "https://code.s3.yandex.net/react/code/sauce-03-mobile.png"
-        },
-        {
-            id: 3,
-            name: 'Мясо бессмертных моллюсков Protostomia',
-            price: 300,
-            image: "https://code.s3.yandex.net/react/code/meat-02-mobile.png"
-        },
-        {
-            id: 8,
-            name: 'Краторная булка N-200i (низ)',
-            price: 200,
-            image: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-            type: 'bottom',
-            isLocked: true
-        }
-    ];
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const total = ingredients.reduce((acc, ingredient) => acc + ingredient.price, 0);
+
+    const handleOrderButtonClick = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalVisible(false);
+    };
 
     return (
         <div className={styles.constructorContainer}>
@@ -60,13 +44,21 @@ const BurgerConstructor = () => {
                         <span>{total}</span>
                         <CurrencyIcon type="primary" />
                     </div>
-                    <Button htmlType="button" type="primary" size="medium">
+                    <Button htmlType="button" type="primary" size="medium" onClick={handleOrderButtonClick}>
                         Оформить заказ
                     </Button>
                 </div>
             </div>
+            {isModalVisible && (
+                <Modal onClose={handleCloseModal} type="order">
+                    <OrderDetails />
+                </Modal>
+            )}
         </div>
     );
+};
+
+BurgerConstructor.propTypes = {
 };
 
 export default BurgerConstructor;

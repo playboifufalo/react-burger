@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './app.module.css';
 import AppHeader from '../app-header/app-header.jsx';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients.jsx';
@@ -9,12 +9,13 @@ function App() {
   return (
     <>
     <AppHeader />
-    <div className={styles.main}>
+    <main>
       <BurgerIngredients />
       <BurgerConstructor />
-    </div>
+    </main>
     </>
   );
 }
 
 export default App;
+  
