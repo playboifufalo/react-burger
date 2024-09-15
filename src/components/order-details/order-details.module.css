@@ -5,6 +5,9 @@
     margin-bottom: 32px; 
 }
 
+.number{
+    text-align: center;
+}
 .checkIron {
     text-align: center;
     padding-top: 0; 
