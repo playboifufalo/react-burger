@@ -6,7 +6,8 @@
     border-style: solid;
     border-color: transparent;
     opacity: 1;
-    overflow: hidden; 
+    overflow-y: hidden;
+    overflow-x: hidden;
   }
   
   
