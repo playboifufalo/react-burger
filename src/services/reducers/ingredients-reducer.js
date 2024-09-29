@@ -1,8 +1,8 @@
 import {
-    FETCH_INGREDIENTS_REQUEST,
-    FETCH_INGREDIENTS_SUCCESS,
-    FETCH_INGREDIENTS_FAILURE,
-  } from '../actions/ingredients-action';
+  FETCH_INGREDIENTS_REQUEST,
+  FETCH_INGREDIENTS_SUCCESS,
+  FETCH_INGREDIENTS_FAILURE,
+} from '../actions/actions';
   
   const initialState = {
     bun: null,

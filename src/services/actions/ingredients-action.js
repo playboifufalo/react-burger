@@ -1,7 +1,9 @@
-export const FETCH_INGREDIENTS_REQUEST = 'FETCH_INGREDIENTS_REQUEST';
-export const FETCH_INGREDIENTS_SUCCESS = 'FETCH_INGREDIENTS_SUCCESS';
-export const FETCH_INGREDIENTS_FAILURE = 'FETCH_INGREDIENTS_FAILURE';
-export const BASE_URL = 'https://norma.nomoreparties.space/api/ingredients';
+import { BASE_URL } from '../../utils/const';
+import {
+  FETCH_INGREDIENTS_REQUEST,
+  FETCH_INGREDIENTS_SUCCESS,
+  FETCH_INGREDIENTS_FAILURE,
+} from './actions';
 
 export const fetchIngredients = () => async (dispatch) => {
   dispatch({ type: FETCH_INGREDIENTS_REQUEST });

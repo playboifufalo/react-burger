@@ -5,13 +5,11 @@ import { useDrop, useDrag } from 'react-dnd';
 import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modals/modal/modal';
 import OrderDetails from '../order-details/order-details';
-import { v4 as uuidv4 } from 'uuid';
 import { addIngredient, addBun, removeIngredient, resetConstructor, moveIngredient } from '../../services/actions/constructor-action';
-import { placeOrder } from '../../services/actions/order-actions';
+import { placeOrder } from '../../services/actions/order-actions'; 
 
 const IngredientItem = ({ ingredient, index, moveIngredient, onRemoveIngredient }) => {
     const ref = useRef(null);
-    const dispatch = useDispatch();
 
     const [{ isDragging }, dragRef] = useDrag({
         type: 'ingredient',
@@ -56,6 +54,7 @@ const BurgerConstructor = () => {
     const dispatch = useDispatch();
     const { bun, ingredients = [] } = useSelector((state) => state.constructor);    
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const { orderNumber } = useSelector((state) => state.order);
 
     const isOrderButtonDisabled = ingredients.length === 0 && !bun;
 
@@ -94,18 +93,23 @@ const BurgerConstructor = () => {
     }, [ingredients, bun]);
 
     const handleOrderButtonClick = () => {
-        if (!ingredients.length && !bun) return;
+        if (!bun || !ingredients.length) return;
         const orderData = {
-            ingredients: ingredients.map(ingredient => ingredient._id), 
+            ingredients: [
+                bun._id,
+                ...ingredients.map(ingredient => ingredient._id),
+                bun._id,
+            ],
         };
-        dispatch(placeOrder(orderData)); 
+        dispatch(placeOrder(orderData));
         setIsModalVisible(true);
         dispatch(resetConstructor());
     };
 
-    const handleCloseModal = () => {
+      const handleCloseModal = () => {
         setIsModalVisible(false);
-    };
+        dispatch(resetConstructor()); 
+      };
 
     return (
         <div className={styles.constructorContainer} ref={dropRef}>
@@ -122,11 +126,10 @@ const BurgerConstructor = () => {
                             />
                         </div>
                     )}
-                    {ingredients.map((ingredient, index) => (
+                    {ingredients.map((ingredient) => (
                         <IngredientItem
                             key={ingredient._id}
                             ingredient={ingredient}
-                            index={index}
                             moveIngredient={moveIngredientHandler}
                             onRemoveIngredient={removeIngredientHandler}
                         />
@@ -162,7 +165,7 @@ const BurgerConstructor = () => {
 
             {isModalVisible && (
                 <Modal onClose={handleCloseModal} type="order">
-                    <OrderDetails />
+                    <OrderDetails orderNumber={orderNumber}/>
                 </Modal>
             )}
         </div>

@@ -1,10 +1,10 @@
 import {
-  MOVE_INGREDIENT,
   ADD_INGREDIENT,
   ADD_BUN,
   REMOVE_INGREDIENT,
-  RESET_CONSTRUCTOR, 
-} from '../actions/constructor-action';
+  MOVE_INGREDIENT,
+  RESET_CONSTRUCTOR,
+} from '../actions/actions';
 
 const initialState = {
   bun: null,

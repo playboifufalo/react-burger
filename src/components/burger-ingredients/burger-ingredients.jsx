@@ -2,14 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from './burger-ingredients.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
-import { Tab, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modals/modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { fetchIngredients } from '../../services/actions/ingredients-action';
-import PropTypes from 'prop-types';
 import { useInView } from 'react-intersection-observer';
-import { IngredientType } from '../../utils/types';
-import checkResponse from '../../utils/check-response';
 
 const BurgerIngredients = () => {
 
@@ -22,12 +19,11 @@ const BurgerIngredients = () => {
     const sauceRef = useRef(null);
     const mainRef = useRef(null);
 
-    const { ref: bunInViewRef, inView: bunInView } = useInView({ threshold: 0.5 });
-    const { ref: sauceInViewRef, inView: sauceInView } = useInView({ threshold: 0.5 });
-    const { ref: mainInViewRef, inView: mainInView } = useInView({ threshold: 0.5 });
+    const {inView: bunInView } = useInView({ threshold: 0.5 });
+    const {inView: sauceInView } = useInView({ threshold: 0.5 });
+    const {inView: mainInView } = useInView({ threshold: 0.5 });
 
     useEffect(() => {
-        dispatch(fetchIngredients());
     }, [dispatch]);
 
     useEffect(() => {
@@ -87,7 +83,7 @@ const BurgerIngredients = () => {
                 </div>
             </div>
             <div className={styles.ingredient_position}>
-                <section ref={bunRef}>
+                <section ref={bunRef} id="bun">
                     <h2 className="text text_type_main-medium">Булки</h2>
                     <div className={styles.ingredients}>
                         {filterIngredientsByType('bun').map((ingredient) => (
@@ -95,7 +91,7 @@ const BurgerIngredients = () => {
                         ))}
                     </div>
                 </section>
-                <section ref={sauceRef}>
+                <section ref={sauceRef} id="sauce">
                     <h2 className="text text_type_main-medium">Соусы</h2>
                     <div className={styles.ingredients}>
                         {filterIngredientsByType('sauce').map((ingredient) => (
@@ -103,7 +99,7 @@ const BurgerIngredients = () => {
                         ))}
                     </div>
                 </section>
-                <section ref={mainRef}>
+                <section ref={mainRef} id="main">
                     <h2 className="text text_type_main-medium">Начинки</h2>
                     <div className={styles.ingredients}>
                         {filterIngredientsByType('main').map((ingredient) => (
@@ -129,11 +125,16 @@ const IngredientCard = ({ ingredient, onClick }) => {
         isDragging: monitor.isDragging(),
       }),
     });
-  
-    console.log('IngredientCard render', ingredient);
+
+    const { ingredients, bun } = useSelector((state) => state.constructor);
+
+    const ingredientCount = ingredients && Array.isArray(ingredients)
+  ? ingredients.filter(item => item._id === ingredient._id).length
+  : 0;
   
     return (
       <div ref={dragRef} className={styles.ingredient} onClick={() => onClick(ingredient)}>
+        <section className={styles.counter}>{ingredientCount > 0 && <Counter count={ingredientCount} size="default" extraClass="m-1" />}</section>
         <img src={ingredient.image} alt={ingredient.name} className={styles.ingredient_img} />
         <div className={styles.price_container}>
           <p className="text text_type_digits-default">{ingredient.price}</p>
@@ -142,10 +143,6 @@ const IngredientCard = ({ ingredient, onClick }) => {
         <p className="text text_type_main-default">{ingredient.name}</p>
       </div>
     );
-  };
-
-BurgerIngredients.propTypes = {
-    ingredients: PropTypes.arrayOf(IngredientType), 
-};
+    };
 
 export default BurgerIngredients;
