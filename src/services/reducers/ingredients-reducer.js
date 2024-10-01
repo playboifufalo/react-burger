@@ -13,7 +13,7 @@ import {
   
   export const ingredientsReducer = (state = initialState, action) => {
     switch (action.type) {
-      case FETCH_INGREDIENTS_REQUEST:
+      case  FETCH_INGREDIENTS_REQUEST:
         return { ...state, isLoading: true, error: null };
       case FETCH_INGREDIENTS_SUCCESS:
         return { ...state, isLoading: false, ingredients: action.payload || []

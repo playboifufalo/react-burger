@@ -9,7 +9,7 @@ export const fetchIngredients = () => async (dispatch) => {
   dispatch({ type: FETCH_INGREDIENTS_REQUEST });
 
   try {
-    const response = await fetch(BASE_URL);
+    const response = await fetch(`${BASE_URL}ingredients`);
     const data = await response.json();
     dispatch({ type: FETCH_INGREDIENTS_SUCCESS, payload: data.data });
   } catch (error) {

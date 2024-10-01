@@ -1,5 +1,4 @@
-import checkResponse from '../../utils/check-response';
-import { BASE_URL } from '../../utils/const';
+
 import {
   PLACE_ORDER_REQUEST,
   PLACE_ORDER_SUCCESS,
