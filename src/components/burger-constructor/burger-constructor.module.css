@@ -6,7 +6,8 @@
     border-style: solid;
     border-color: transparent;
     opacity: 1;
-    overflow: hidden; 
+    overflow-y: hidden;
+    overflow-x: hidden;
   }
   
   
@@ -50,7 +51,10 @@
 .ingredientItem {
     display: flex;
     align-items: center;
-    gap: 24px; 
+    justify-content: space-between; 
+    padding: 10px; 
+    width: 100%; 
+    box-sizing: border-box;
 }
 
 .dragIcon {
