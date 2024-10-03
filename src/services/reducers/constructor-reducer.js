@@ -31,20 +31,27 @@ export const constructorReducer = (state = initialState, action) => {
           (ingredient) => ingredient.uniqueId !== action.payload.uniqueId
         ),
       };
-      case MOVE_INGREDIENT: {
-        const { fromIndex, toIndex } = action.payload;
-        const ingredients = [...state.ingredients];
-      
-       
-        if (fromIndex < 0 || fromIndex >= ingredients.length || toIndex < 0 || toIndex >= ingredients.length) {
-          return state; 
+      case MOVE_INGREDIENT:
+        case MOVE_INGREDIENT:
+        console.log('Reducer: Moving ingredient from', action.payload.fromIndex, 'to', action.payload.toIndex);
+        const updatedIngredients = [...state.ingredients];
+        
+        if (
+            action.payload.fromIndex >= 0 &&
+            action.payload.toIndex >= 0 &&
+            action.payload.fromIndex < updatedIngredients.length &&
+            action.payload.toIndex < updatedIngredients.length
+        ) {
+            const [movedIngredient] = updatedIngredients.splice(action.payload.fromIndex, 1);
+            updatedIngredients.splice(action.payload.toIndex, 0, movedIngredient);
+        } else {
+            console.error('Invalid indices:', action.payload);
         }
-      
-        const [movedIngredient] = ingredients.splice(fromIndex, 1);  
-        ingredients.splice(toIndex, 0, movedIngredient); 
-      
-        return { ...state, ingredients };
-      }
+
+        return {
+            ...state,
+            ingredients: updatedIngredients,
+        };
       
     case RESET_CONSTRUCTOR:
       return {

@@ -5,7 +5,6 @@ import { useDrag } from 'react-dnd';
 import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modals/modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import { fetchIngredients } from '../../services/actions/ingredients-action';
 import { useInView } from 'react-intersection-observer';
 
 const BurgerIngredients = () => {
@@ -126,7 +125,7 @@ const IngredientCard = ({ ingredient, onClick }) => {
       }),
     });
 
-    const { ingredients, bun } = useSelector((state) => state.constructor);
+    const { ingredients } = useSelector((state) => state.constructor);
 
     const ingredientCount = ingredients && Array.isArray(ingredients)
   ? ingredients.filter(item => item._id === ingredient._id).length
