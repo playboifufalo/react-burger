@@ -8,7 +8,6 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import { useInView } from 'react-intersection-observer';
 
 const BurgerIngredients = () => {
-
     const dispatch = useDispatch();
     const { ingredients = [], isLoading, error } = useSelector((state) => state.ingredients);
     const [currentTab, setCurrent] = useState('bun');
@@ -18,19 +17,20 @@ const BurgerIngredients = () => {
     const sauceRef = useRef(null);
     const mainRef = useRef(null);
 
-    const {inView: bunInView } = useInView({ threshold: 0.5 });
-    const {inView: sauceInView } = useInView({ threshold: 0.5 });
-    const {inView: mainInView } = useInView({ threshold: 0.5 });
+    const { ref: bunInViewRef, inView: bunInView } = useInView({ threshold: 0.2 });
+    const { ref: sauceInViewRef, inView: sauceInView } = useInView({ threshold: 0.2 });
+    const { ref: mainInViewRef, inView: mainInView } = useInView({ threshold: 0.2 });
 
     useEffect(() => {
-    }, [dispatch]);
-
-    useEffect(() => {
-        if (bunInView) setCurrent('bun');
-        else if (sauceInView) setCurrent('sauce');
-        else if (mainInView) setCurrent('main');
+        if (bunInView) {
+            setCurrent('bun');
+        } else if (sauceInView) {
+            setCurrent('sauce');
+        } else if (mainInView) {
+            setCurrent('main');
+        }
     }, [bunInView, sauceInView, mainInView]);
-    
+
     const filterIngredientsByType = (type) => {
         return ingredients.filter(ingredient => ingredient.type === type);
     };
@@ -46,9 +46,8 @@ const BurgerIngredients = () => {
         }
     };
 
-    
     const handleIngredientClick = (ingredient) => {
-        setSelectedIngredient(ingredient); 
+        setSelectedIngredient(ingredient);
     };
 
     const handleCloseModal = () => {
@@ -83,7 +82,7 @@ const BurgerIngredients = () => {
             </div>
             <div className={styles.ingredient_position}>
                 <section ref={bunRef} id="bun">
-                    <h2 className="text text_type_main-medium">Булки</h2>
+                    <h2 className="text text_type_main-medium" ref={bunInViewRef}>Булки</h2>
                     <div className={styles.ingredients}>
                         {filterIngredientsByType('bun').map((ingredient) => (
                             <IngredientCard key={ingredient._id} ingredient={ingredient} onClick={handleIngredientClick} />
@@ -91,7 +90,7 @@ const BurgerIngredients = () => {
                     </div>
                 </section>
                 <section ref={sauceRef} id="sauce">
-                    <h2 className="text text_type_main-medium">Соусы</h2>
+                    <h2 className="text text_type_main-medium" ref={sauceInViewRef}>Соусы</h2>
                     <div className={styles.ingredients}>
                         {filterIngredientsByType('sauce').map((ingredient) => (
                             <IngredientCard key={ingredient._id} ingredient={ingredient} onClick={handleIngredientClick} />
@@ -99,7 +98,7 @@ const BurgerIngredients = () => {
                     </div>
                 </section>
                 <section ref={mainRef} id="main">
-                    <h2 className="text text_type_main-medium">Начинки</h2>
+                    <h2 className="text text_type_main-medium" ref={mainInViewRef}>Начинки</h2>
                     <div className={styles.ingredients}>
                         {filterIngredientsByType('main').map((ingredient) => (
                             <IngredientCard key={ingredient._id} ingredient={ingredient} onClick={handleIngredientClick} />
@@ -118,30 +117,35 @@ const BurgerIngredients = () => {
 
 const IngredientCard = ({ ingredient, onClick }) => {
     const [, dragRef] = useDrag({
-      type: 'ingredient',
-      item: { ingredient },
-      collect: (monitor) => ({
-        isDragging: monitor.isDragging(),
-      }),
+        type: 'ingredient',
+        item: { ingredient },
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+        }),
     });
 
-    const { ingredients } = useSelector((state) => state.constructor);
+    const { ingredients, bun } = useSelector((state) => state.constructor);
 
     const ingredientCount = ingredients && Array.isArray(ingredients)
-  ? ingredients.filter(item => item._id === ingredient._id).length
-  : 0;
-  
+        ? ingredients.filter(item => item._id === ingredient._id).length
+        : 0;
+    const bunCount = bun && bun._id === ingredient._id ? 1 : 0;
+
     return (
-      <div ref={dragRef} className={styles.ingredient} onClick={() => onClick(ingredient)}>
-        <section className={styles.counter}>{ingredientCount > 0 && <Counter count={ingredientCount} size="default" extraClass="m-1" />}</section>
-        <img src={ingredient.image} alt={ingredient.name} className={styles.ingredient_img} />
-        <div className={styles.price_container}>
-          <p className="text text_type_digits-default">{ingredient.price}</p>
-          <CurrencyIcon type="primary" />
+        <div ref={dragRef} className={styles.ingredient} onClick={() => onClick(ingredient)}>
+            <section className={styles.counter}>
+                {ingredient.type === 'bun' && bunCount > 0 && <Counter count={bunCount} size="default" extraClass="m-1" />}
+                {ingredient.type !== 'bun' && ingredientCount > 0 && <Counter count={ingredientCount} size="default" extraClass="m-1" />}
+            </section>
+            <img src={ingredient.image} alt={ingredient.name} className={styles.ingredient_img} />
+            <div className={styles.price_container}>
+                <p className="text text_type_digits-default">{ingredient.price}</p>
+                <CurrencyIcon type="primary" />
+            </div>
+            <p className="text text_type_main-default">{ingredient.name}</p>
         </div>
-        <p className="text text_type_main-default">{ingredient.name}</p>
-      </div>
     );
-    };
+};
+
 
 export default BurgerIngredients;
