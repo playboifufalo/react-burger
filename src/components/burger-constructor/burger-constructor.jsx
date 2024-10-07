@@ -7,13 +7,14 @@ import Modal from '../modals/modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { addIngredient, addBun, removeIngredient, resetConstructor, moveIngredient } from '../../services/actions/constructor-action';
 import { placeOrder } from '../../services/actions/order-actions'; 
+import { MOVE_INGREDIENT } from '../../services/actions/actions';
 
 const IngredientItem = ({ ingredient, index, moveIngredient, onRemoveIngredient }) => {
     const ref = useRef(null);
 
     const [{ isDragging }, dragRef] = useDrag({
         type: 'ingredient',
-        item: { index }, 
+        item: { ingredient, index }, 
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
@@ -21,18 +22,29 @@ const IngredientItem = ({ ingredient, index, moveIngredient, onRemoveIngredient 
 
     const [, dropRef] = useDrop({
         accept: 'ingredient',
-        hover: (draggedItem) => {
-            if (draggedItem && draggedItem.index !== undefined) {
-                if (draggedItem.index !== index) {
-                    moveIngredient(draggedItem.index, index);
-                    draggedItem.index = index;
-                }
-            } else {
-                console.error('Dragged item is missing or incorrect:', draggedItem);
-            }
-        },
+        hover: (draggedItem, monitor) => {
+            if (!ref.current) return;
+        
+            const dragIndex = draggedItem.index;
+            const hoverIndex = index;
+        
+            console.log('Dragging index:', dragIndex, 'Hover index:', hoverIndex);
+        
+            if (dragIndex === hoverIndex) return;
+        
+            const hoverBoundingRect = ref.current.getBoundingClientRect();
+            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+            const clientOffset = monitor.getClientOffset();
+            const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+        
+            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return;
+            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) return;
+        
+            // Перемещение ингредиента
+            moveIngredient(dragIndex, hoverIndex);
+            draggedItem.index = hoverIndex;
+        }
     });
-    
 
     dragRef(dropRef(ref)); 
     return (
@@ -50,6 +62,7 @@ const IngredientItem = ({ ingredient, index, moveIngredient, onRemoveIngredient 
     );
 };
 
+
 const BurgerConstructor = () => {
     const dispatch = useDispatch();
     const { bun, ingredients = [] } = useSelector((state) => state.constructor);    
@@ -63,6 +76,9 @@ const BurgerConstructor = () => {
         drop: (item) => {
             if (item && item.ingredient) {
                 const { ingredient } = item;
+                
+                if (ingredients.some((ing) => ing.uniqueId === ingredient.uniqueId)) return;
+    
                 if (ingredient.type === 'bun') {
                     dispatch(addBun(ingredient));
                 } else {
@@ -73,10 +89,11 @@ const BurgerConstructor = () => {
             }
         },
     });
-
     const moveIngredientHandler = (fromIndex, toIndex) => {
-        if (fromIndex === toIndex) return;
-        dispatch(moveIngredient(fromIndex, toIndex));
+        dispatch({
+            type: MOVE_INGREDIENT,
+            payload: { fromIndex, toIndex },
+        });
     };
 
     const removeIngredientHandler = (uniqueId) => {
@@ -126,10 +143,11 @@ const BurgerConstructor = () => {
                             />
                         </div>
                     )}
-                    {ingredients.map((ingredient) => (
+                    {ingredients.map((ingredient, index) => (
                         <IngredientItem
-                            key={ingredient._id}
+                            key={ingredient.uniqueId}
                             ingredient={ingredient}
+                            index={index}
                             moveIngredient={moveIngredientHandler}
                             onRemoveIngredient={removeIngredientHandler}
                         />

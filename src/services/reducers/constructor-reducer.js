@@ -3,56 +3,46 @@ import {
   ADD_BUN,
   REMOVE_INGREDIENT,
   MOVE_INGREDIENT,
+  CLEAR_ORDER,
   RESET_CONSTRUCTOR,
 } from '../actions/actions';
 
 const initialState = {
   bun: null,
-  ingredients: [],
-  isLoading: false,
-  error: null,
+  ingredients: [],  // Пустой массив по умолчанию
 };
 
 export const constructorReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_BUN:
-      return { ...state, bun: action.payload || null }; 
     case ADD_INGREDIENT:
-      return { 
-        ...state, 
-        ingredients: Array.isArray(state.ingredients) 
-          ? [...state.ingredients, action.payload] 
-          : [action.payload] 
-      };
-      case REMOVE_INGREDIENT:
       return {
         ...state,
-        ingredients: state.ingredients.filter(
-          (ingredient) => ingredient.uniqueId !== action.payload.uniqueId
-        ),
+        ingredients: [...(state.ingredients || []), action.payload],  // Проверка на null и undefined
       };
-      case MOVE_INGREDIENT: {
-        const { fromIndex, toIndex } = action.payload;
-        const ingredients = [...state.ingredients];
-      
-       
-        if (fromIndex < 0 || fromIndex >= ingredients.length || toIndex < 0 || toIndex >= ingredients.length) {
-          return state; 
-        }
-      
-        const [movedIngredient] = ingredients.splice(fromIndex, 1);  
-        ingredients.splice(toIndex, 0, movedIngredient); 
-      
-        return { ...state, ingredients };
+    case ADD_BUN:
+      return {
+        ...state,
+        bun: action.payload,
+      };
+    case REMOVE_INGREDIENT:
+      return {
+        ...state,
+        ingredients: state.ingredients.filter(item => item.uniqueId !== action.payload.uniqueId),
+      };
+    case MOVE_INGREDIENT:
+      const updatedIngredients = [...(state.ingredients || [])];  // Проверка на null и undefined
+      if (updatedIngredients.length > 0) {
+        const [movedItem] = updatedIngredients.splice(action.payload.fromIndex, 1);
+        updatedIngredients.splice(action.payload.toIndex, 0, movedItem);
       }
-      
-    case RESET_CONSTRUCTOR:
       return {
         ...state,
-        bun: null,
-        ingredients: [], 
+        ingredients: updatedIngredients,
       };
+    case RESET_CONSTRUCTOR:
+      return initialState;
     default:
       return state;
   }
 };
+
