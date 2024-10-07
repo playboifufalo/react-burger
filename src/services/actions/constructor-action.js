@@ -1,3 +1,4 @@
+import checkResponse from '../../utils/check-response';
 import { BASE_URL } from '../../utils/const';
 import { v4 as uuidv4 } from 'uuid';
 import {
@@ -52,7 +53,7 @@ export const fetchIngredients = () => async (dispatch) => {
 
   try {
     const response = await fetch(`${BASE_URL}ingredients`);
-    const data = await response.json();
+    const data = await checkResponse(response);
     dispatch({ type: FETCH_INGREDIENTS_SUCCESS, payload: data.data });
   } catch (error) {
     dispatch({ type: FETCH_INGREDIENTS_FAILURE, payload: 'Failed to load ingredients' });
