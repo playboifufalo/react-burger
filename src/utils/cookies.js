@@ -1,4 +1,3 @@
-// Устанавливаем куки
 export const setCookie = (name, value, options = {}) => {
     options = {
         path: '/',

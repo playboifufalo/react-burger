@@ -1,18 +1,24 @@
 .profile_container {
+    margin-top: 120px;
     display: flex;
+    flex-direction: row;
     justify-content: center; 
     align-items: flex-start;
-    margin-right: 100px;
+    margin-right: 350px;
+}
+
+.profile_form {
     margin-left: 80px; 
+    width: 400px;
 }
 
 .sidebar {
-    width: 200px;
-    margin-right: 80px; 
+    width: 200px; 
 }
 
 .sidebar_list {
-    list-style: none;
+    list-style: none; 
+    padding: 0;
 }
 
 .sidebar_link {
@@ -20,57 +26,13 @@
     padding: 10px;
     text-decoration: none;
     font-size: 18px;
+    color: black;
 }
 
 .sidebar_link:hover {
     background-color: #EAEAEA; 
 }
 
-.profile_form {
-    padding-right: 64px;
-    flex-grow: 1; 
-}
-
 .input_section {
     margin-top: 24px;
-    width: 100%; 
-    max-width: 400px; 
-}
-.profile_container {
-    display: flex;
-    justify-content: center; 
-    align-items: flex-start;
-    margin-right: 100px;
-    margin-left: 80px; 
-}
-
-.sidebar {
-    width: 200px;
-    margin-right: 80px; 
-}
-
-.sidebar_list {
-    list-style: none;
-}
-
-.sidebar_link {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    font-size: 18px;
-}
-
-.sidebar_link:hover {
-    background-color: #EAEAEA; 
-}
-
-.profile_form {
-    padding-right: 64px;
-    flex-grow: 1; 
-}
-
-.input_section {
-    margin-top: 24px;
-    width: 100%; 
-    max-width: 400px;
 }
