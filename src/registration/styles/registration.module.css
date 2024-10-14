@@ -1,0 +1,26 @@
+.register_section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .register_text {
+    text-align: center;
+  }
+  
+  .input_section {
+    margin-top: 24px;
+    width: 100%;
+  }
+  
+  .button_section {
+    margin-top: 24px;
+    text-align: center;
+  }
+  
+  .link_section {
+    margin-top: 80px; 
+    text-align: center;
+  }
+  
